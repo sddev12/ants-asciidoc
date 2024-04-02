@@ -1,0 +1,143 @@
+= Ants
+
+Ants are known to be one of, if not the most successful creatures that hav ever lived
+
+They have been around for 150 million years, adapting and evolving
+
+Today, there are over 14,000 species of ant. 
+
+.Leaf Cutter Ants
+image::https://www.imperial.ac.uk/ImageCropToolT4/imageTool/uploaded-images/newseventsimage_1639663398757_mainnews2012_x1.webp[Leaf Cutter Ant, width=800, title="Leaf Cutter Ant"]
+
+.Fire Ants
+image::https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgK6i9KMvtxN4FAN2uV8RnI_0A4jzy2dpsmmrWrUNUig&s[Fire Ants,width=800, title="Fire Ants"]
+
+.Black Garden Ant
+image::https://www.avon-pestcontrol.co.uk/wp-content/uploads/2023/01/Depositphotos_1498755_S.jpg[Black Garden Ant, width=800, title="Black Garden Ant"]
+
+== Natural Computers
+
+Over more recent years research into ants and the behaviours exhibited in ant colonies have sparked an interest in ants as technological systems inspiring 'new' ways to solve problems, in particular the most efficient ways of solving problems. 
+
+One example of this is how leaf cutter ants locate leaves to cut and carry them back to the nest.
+The colony solves this problem using a logical system based on pheromones and this system has been simulated to solve some very large human problems. 
+
+=== Air Liquide
+
+Air Liquide S.A. is a French multinational company which supplies industrial gases and services to various industries including medical, chemical and electronic manufacturers.
+
+At Air Liquide's Texas based US headquarters, they monitor the prduction and supply of all of their gasses and liquds in the US. They deliver to around 10,000 customer sites accross the country with 1000 trucks to dispatch on any given day. This represents a massive logistical challenge.
+
+=== The Travelling Salesman Problem
+
+The travelling salesman problem, also known as the travelling salesperson problem (TSP), asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?" - link:https://en.wikipedia.org/wiki/Travelling_salesman_problem[The Travelling Saleman Problem - Wikipedia]
+
+*A trip that includes just 15 cities has over 40,000,000,000 possible routes!*
+
+*Air Liquide faces a logistics problem that has trillions of possible solutions!*
+
+=== ACO (Ant Colony Optimisation)
+
+In computer science and operations research, the ant colony optimization algorithm (ACO) is a probabilistic technique for solving computational problems which can be reduced to finding good paths through graphs. - link:https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms[Ant Colony Optimisation Algorithms - Wikipedia]
+
+video::./vid/ACO.mp4[width=1000]
+
+[source,python]
+----
+import random
+import math
+
+class Ant:
+    def __init__(self, num_cities):
+        self.num_cities = num_cities
+        self.visited = [False] * num_cities
+        self.path = []
+        self.distance = 0.0
+        self.current_node = random.randint(0, num_cities - 1)
+
+    def move_to_next_city(self, pheromones, distances, alpha, beta):
+        probabilities = [0.0] * self.num_cities
+        sum_probabilities = 0.0
+
+        for i in range(self.num_cities):
+            if not self.visited[i]:
+                probabilities[i] = (pheromones[self.current_node][i] ** alpha) * ((1.0 / distances[self.current_node][i]) ** beta)
+                sum_probabilities += probabilities[i]
+
+        selected = random.random() * sum_probabilities
+        next_city = 0
+        for p in probabilities:
+            selected -= p
+            if selected <= 0:
+                break
+            next_city += 1
+
+        self.path.append(next_city)
+        self.distance += distances[self.current_node][next_city]
+        self.current_node = next_city
+        self.visited[next_city] = True
+
+def update_pheromones(ants, pheromones, evaporation_rate):
+    for ant in ants:
+        for i in range(len(ant.path) - 1):
+            pheromones[ant.path[i]][ant.path[i + 1]] += Q / ant.distance
+            pheromones[ant.path[i + 1]][ant.path[i]] = pheromones[ant.path[i]][ant.path[i + 1]]
+    for i in range(len(pheromones)):
+        for j in range(len(pheromones[i])):
+            pheromones[i][j] *= (1 - evaporation_rate)
+
+def calculate_distance(city_coords):
+    distances = []
+    for i in range(len(city_coords)):
+        distances.append([])
+        for j in range(len(city_coords)):
+            distances[i].append(math.sqrt((city_coords[i][0] - city_coords[j][0]) ** 2 + (city_coords[i][1] - city_coords[j][1]) ** 2))
+    return distances
+
+def main():
+    num_ants = 10
+    num_iterations = 100
+    evaporation_rate = 0.5
+    alpha = 1.0
+    beta = 2.0
+    global Q
+    Q = 100.0
+
+    random.seed()
+
+    city_coords = [(0, 0), (10, 10), (20, 20), (30, 30), (40, 40)]
+    num_cities = len(city_coords)
+
+    distances = calculate_distance(city_coords)
+
+    pheromones = [[1.0] * num_cities for _ in range(num_cities)]
+
+    best_distance = float('inf')
+    best_path = []
+
+    for _ in range(num_iterations):
+        ants = [Ant(num_cities) for _ in range(num_ants)]
+
+        for _ in range(num_cities - 1):
+            for ant in ants:
+                ant.move_to_next_city(pheromones, distances, alpha, beta)
+
+        update_pheromones(ants, pheromones, evaporation_rate)
+
+        for ant in ants:
+            if ant.distance < best_distance:
+                best_distance = ant.distance
+                best_path = list(ant.path)
+
+    print("Best Path:", best_path)
+    print("Best Distance:", best_distance)
+
+if __name__ == "__main__":
+    main()
+
+----
+
+=== University Of Strathclyde - Advanced Space Concepts Lab
+
+The paper presents an Ant System based algorithm to optimally plan multi-gravity assist trajectories - 
+link:https://strathprints.strath.ac.uk/26350/1/Ceriotti_M_%26_Vasile_M_-_strathprints_-_An_ant_system_algorithm_for_automated_trajectory_planning_Jul_2010.pdf[An Ant System Algorithm for Automated Trajectory Planning]
