@@ -1,5 +1,5 @@
 # Fact Of The Day In Asciidoc
-Here's a nice little fact of the day about ants and their contribution to the solving of real worlds problems written in asciidoc.
+Here's a nice little fact of the day about ants and their contribution to the solving of real worlds problems written in [asciidoc](https://asciidoc.org/).
 
 # Asciidoc
 I am using [Asciidoctor.js](https://docs.asciidoctor.org/asciidoctor.js/latest/cli/install/) as the asciidoc processor for this project although there are other options you can choose from. 
