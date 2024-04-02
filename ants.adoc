@@ -42,7 +42,9 @@ In computer science and operations research, the ant colony optimization algorit
 
 video::./vid/ACO.mp4[width=1000]
 
-[source,python]
+=== An Example In Code
+
+[source, python]
 ----
 import random
 import math
@@ -137,7 +139,7 @@ if __name__ == "__main__":
 
 ----
 
-=== University Of Strathclyde - Advanced Space Concepts Lab
+== University Of Strathclyde - Advanced Space Concepts Lab
 
 The paper presents an Ant System based algorithm to optimally plan multi-gravity assist trajectories - 
 link:https://strathprints.strath.ac.uk/26350/1/Ceriotti_M_%26_Vasile_M_-_strathprints_-_An_ant_system_algorithm_for_automated_trajectory_planning_Jul_2010.pdf[An Ant System Algorithm for Automated Trajectory Planning]
