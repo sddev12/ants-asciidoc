@@ -1,4 +1,6 @@
 = Ants Deliver All The Things!
+:source-highlighter: highlight.js
+:highlightjs-languages: python
 
 Ants are known to be one of, if not the most successful creatures that have ever lived
 
