@@ -40,6 +40,10 @@ The travelling salesman problem, also known as the travelling salesperson proble
 
 In computer science and operations research, the ant colony optimization algorithm (ACO) is a probabilistic technique for solving computational problems which can be reduced to finding good paths through graphs. - link:https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms[Ant Colony Optimisation Algorithms - Wikipedia]
 
+In simple terms, this involves creating algorithms based on systems observed in ant colonies to find the best possible routes for logistical supply.
+
+It works by simulating ant behaviour in relation to how they find food or resources and bring them back to the nest using pheromone based communication.  
+
 video::./vid/ACO.mp4[width=1000]
 
 === An Example In Code
